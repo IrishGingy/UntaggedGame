@@ -27,12 +27,12 @@ public class PlayerController : MonoBehaviour
     // Player animation states
     Animator anim;
     string currentState;
-    const string IDLE_LEFT = "PlayerIdleLeft";
-    const string IDLE_RIGHT = "PlayerIdleRight";
-    const string WALK_LEFT = "PlayerLeft";
-    const string WALK_RIGHT = "PlayerRight";
-    const string WALK_DOWN = "PlayerDown";
-    const string WALK_UP = "PlayerUp";
+    const string IDLE_LEFT = "SullyIdleLeft";
+    const string IDLE_RIGHT = "SullyIdleRight";
+    const string WALK_LEFT = "SullyLeft";
+    const string WALK_RIGHT = "SullyRight";
+    const string WALK_DOWN = "SullyDown";
+    const string WALK_UP = "SullyUp";
 
     private void Awake()
     { 
