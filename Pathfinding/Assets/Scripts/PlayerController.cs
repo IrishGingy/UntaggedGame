@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<Sprite> afterSprites;
 
     bool walkingDown;
-    //FoodManager foodManager;
+    FoodManager foodManager;
     bool canPickUpFood;
     GameObject foodToPickUp;
 
@@ -40,13 +40,27 @@ public class PlayerController : MonoBehaviour
         //playerControls.Player.Enable();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        //foodManager = FindObjectOfType<FoodManager>();
+        foodManager = FindObjectOfType<FoodManager>();
     }
 
     private void Update()
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (sceneToLoad != "")
+            {
+                foodManager.gm.Load(sceneToLoad);
+            }
+        }
+        if (canPickUpFood && Input.GetKeyDown(KeyCode.E))
+        {
+            foodManager.IncreaseAmountOfFood();
+            Debug.Log($"Amount of food: {foodManager.foodPickedUp}");
+            canPickUpFood = false;
+            Destroy(foodToPickUp);
+        }
         /*if (playerControls.Player.Interact.WasPerformedThisFrame())
         {
             if (sceneToLoad != "")
