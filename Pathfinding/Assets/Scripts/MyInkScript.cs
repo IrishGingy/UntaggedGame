@@ -18,12 +18,14 @@ public class MyInkScript : MonoBehaviour
     [SerializeField] private Sprite bubbleSprite;
     [SerializeField] private Sprite borderSprite;
     [SerializeField] bool showingChoices;
+    [SerializeField] float letterWaitInSeconds;
 
     static Story story;
     TextMeshProUGUI nametag;
     TextMeshProUGUI message;
     List<string> tags;
     static Choice choiceSelected;
+    bool letterCancel;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +39,7 @@ public class MyInkScript : MonoBehaviour
 
     private void Update()
     {
-        if (textBox.activeSelf && (startDialogue || Input.GetKeyDown(KeyCode.Space)))
+        if (textBox.activeSelf && (startDialogue || Input.GetKeyDown(KeyCode.E)))
         {
             startDialogue = false;
             //Is there more to the story?
@@ -66,6 +68,15 @@ public class MyInkScript : MonoBehaviour
                 FinishDialogue();
             }
         }
+        /*if (Input.GetKeyDown(KeyCode.Space))
+        {
+            letterCancel = true;
+        }*/
+    }
+    
+    public void StartDialogue()
+    {
+        startDialogue = true;
     }
 
     // Finished the Story (Dialogue)
@@ -89,14 +100,18 @@ public class MyInkScript : MonoBehaviour
         message.text = "";
         foreach (char letter in sentence.ToCharArray())
         {
-            message.text += letter;
-            yield return null;
+            if (!letterCancel)
+            {
+                message.text += letter;
+                yield return new WaitForSeconds(letterWaitInSeconds);
+            }
         }
         /*CharacterScript tempSpeaker = GameObject.FindObjectOfType<CharacterScript>();
         if (tempSpeaker.isTalking)
         {
             SetAnimation("idle");
         }*/
+        letterCancel = false;
         yield return null;
     }
 
@@ -120,15 +135,15 @@ public class MyInkScript : MonoBehaviour
             {
                 case 0:
                     Debug.Log("First Choice = " + temp.name);
-                    temp.transform.position = new Vector2(optionPanel.transform.position.x - 200, optionPanel.transform.position.y);
+                    temp.transform.position = new Vector2(optionPanel.transform.position.x, optionPanel.transform.position.y);
                     break;
                 case 1:
                     Debug.Log("Second Choice = " + temp.name);
-                    temp.transform.position = new Vector2(optionPanel.transform.position.x + 200, optionPanel.transform.position.y);
+                    temp.transform.position = new Vector2(optionPanel.transform.position.x, optionPanel.transform.position.y - 100);
                     break;
                 case 2:
                     Debug.Log("Third Choice = " + temp.name);
-                    temp.transform.position = new Vector2(optionPanel.transform.position.x, optionPanel.transform.position.y - 100);
+                    temp.transform.position = new Vector2(optionPanel.transform.position.x, optionPanel.transform.position.y - 200);
                     break;
             }
         }
