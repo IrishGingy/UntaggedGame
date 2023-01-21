@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<Sprite> afterSprites;
 
     bool walkingDown;
-    FoodManager foodManager;
+    GameManager gm;
     bool canPickUpFood;
     GameObject foodToPickUp;
 
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         //playerControls.Player.Enable();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        foodManager = FindObjectOfType<FoodManager>();
+        gm = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -51,13 +51,13 @@ public class PlayerController : MonoBehaviour
         {
             if (sceneToLoad != "")
             {
-                foodManager.gm.Load(sceneToLoad);
+                gm.Load(sceneToLoad);
             }
         }
         if (canPickUpFood && Input.GetKeyDown(KeyCode.E))
         {
-            foodManager.IncreaseAmountOfFood();
-            Debug.Log($"Amount of food: {foodManager.foodPickedUp}");
+            /*foodManager.IncreaseAmountOfFood();*/
+            /*Debug.Log($"Amount of food: {foodManager.foodPickedUp}");*/
             canPickUpFood = false;
             Destroy(foodToPickUp);
         }
@@ -199,6 +199,9 @@ public class PlayerController : MonoBehaviour
                         foodToPickUp = collision.gameObject;
                         canPickUpFood = true;
                         break;
+                    case "NPC":
+                        gm.ShowPrompt();
+                        break;
                     default:
                         Debug.LogWarning($"The tag {tag} doesn't exist in the tag switch statment!");
                         break;
@@ -230,6 +233,10 @@ public class PlayerController : MonoBehaviour
             {
                 collision.transform.GetComponent<SpriteRenderer>().sprite = beforeSprites[0];
                 canPickUpFood = false;
+            }
+            if (collision.transform.CompareTag("NPC"))
+            {
+                gm.HidePrompt();
             }
         }
     }

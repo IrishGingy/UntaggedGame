@@ -19,18 +19,26 @@ public class MyInkScript : MonoBehaviour
     [SerializeField] private Sprite borderSprite;
     [SerializeField] bool showingChoices;
     [SerializeField] float letterWaitInSeconds;
-
+    
+    DialogueManager dm;
     static Story story;
     TextMeshProUGUI nametag;
     TextMeshProUGUI message;
     List<string> tags;
     static Choice choiceSelected;
     bool letterCancel;
+    //bool dialoguePlaying;
 
     // Start is called before the first frame update
     void Start()
     {
-        story = new Story(inkFile.text);
+        SetInkScript(inkFile);
+        dm = GetComponent<DialogueManager>();
+    }
+
+    public void SetInkScript(TextAsset file)
+    {
+        story = new Story(file.text);
         nametag = textBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         message = textBox.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         tags = new List<string>();
@@ -42,6 +50,8 @@ public class MyInkScript : MonoBehaviour
         if (textBox.activeSelf && (startDialogue || Input.GetKeyDown(KeyCode.E)))
         {
             startDialogue = false;
+            //dm.dialoguePlaying = true;
+
             //Is there more to the story?
             if (story.canContinue)
             {
@@ -74,8 +84,11 @@ public class MyInkScript : MonoBehaviour
         }*/
     }
     
-    public void StartDialogue()
+    public void StartDialogue(TextAsset file)
     {
+        //if (dm.dialoguePlaying) { return; }
+        SetInkScript(file);
+        textBox.SetActive(true);
         startDialogue = true;
     }
 
@@ -83,6 +96,9 @@ public class MyInkScript : MonoBehaviour
     private void FinishDialogue()
     {
         Debug.Log("End of Dialogue!");
+        textBox.SetActive(false);
+        dm.StopDialogue();
+        //dm.dialoguePlaying = false;
     }
 
     // Advance through the story 

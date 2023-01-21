@@ -6,19 +6,13 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameManager gm;
-
     [Header("UI")]
-    [SerializeField] Image prompt;
-    Canvas canvas;
+    [SerializeField] GameObject prompt;
 
     // Start is called before the first frame update
     void Start()
     {
-        gm = this;
-
-        canvas = FindObjectOfType<Canvas>();
-        prompt.enabled = false;
+        prompt.SetActive(false);
     }
 
     public void Load(string sceneName)
@@ -28,6 +22,11 @@ public class GameManager : MonoBehaviour
 
     public void ShowPrompt()
     {
-        prompt.enabled = true;
+        prompt.SetActive(true);
+    }
+
+    public void HidePrompt()
+    {
+        prompt.SetActive(false);
     }
 }

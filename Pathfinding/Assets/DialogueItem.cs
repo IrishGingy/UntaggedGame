@@ -6,6 +6,6 @@ using UnityEngine;
 public class DialogueItem : ScriptableObject
 {
     public string characterName;
-
-    public string[] dialogueLines;
+    public TextAsset inkFile;
+    public bool played;
 }

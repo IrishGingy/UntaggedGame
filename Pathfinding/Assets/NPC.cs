@@ -6,26 +6,24 @@ public class NPC : MonoBehaviour
 {
     [SerializeField] DialogueItem dI;
 
+    GameManager gm;
     DialogueManager dm;
-
     bool canInteract;
 
     private void Start()
     {
-        dm = FindObjectOfType<DialogueManager>();
+        gm = FindObjectOfType<GameManager>(); 
+        dm = gm.GetComponent<DialogueManager>();
+
+        dI.played = false;
     }
 
     private void Update()
     {
         if (canInteract && Input.GetKeyDown(KeyCode.E))
         {
-            StartDialogue();
+            dm.PlayDialogue(dI);
         }
-    }
-
-    void StartDialogue()
-    {
-        dm.PlayDialogue(dI.characterName);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

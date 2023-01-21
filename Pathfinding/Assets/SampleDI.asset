@@ -13,10 +13,4 @@ MonoBehaviour:
   m_Name: SampleDI
   m_EditorClassIdentifier: 
   characterName: Lenny
-  dialogueLines:
-  - '[Lenny,1] Hello, my name is Lenny!'
-  - '[Sully] Hi, I''m Sully.'
-  - '[Lenny,2] Could you help me? I lost my favorite pin, and I''d very much like
-    to get it back!'
-  - '[Sully,1] Sure, where did you lose it?'
-  - '[Sully,2] Maybe later.'
+  inkFile: {fileID: 4900000, guid: 59a907a6082f3744ba30dc417ea5a12d, type: 3}
