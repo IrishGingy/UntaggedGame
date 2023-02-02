@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c901732fe5e5d74fa15e1052d1d3436, type: 3}
-  m_Name: SampleDI
+  m_Name: PlaceholderDI
   m_EditorClassIdentifier: 
-  characterName: Lenny
-  inkFile: {fileID: 4900000, guid: 59a907a6082f3744ba30dc417ea5a12d, type: 3}
+  characterName: Placeholder
+  inkFile: {fileID: 4900000, guid: ceb8455a8cc156144a0bafeb14541d36, type: 3}
+  played: 0
+  dependency: {fileID: 0}

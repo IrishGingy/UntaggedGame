@@ -8,4 +8,5 @@ public class DialogueItem : ScriptableObject
     public string characterName;
     public TextAsset inkFile;
     public bool played;
+    public DialogueItem dependency = null;
 }

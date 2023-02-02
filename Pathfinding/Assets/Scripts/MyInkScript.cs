@@ -84,10 +84,14 @@ public class MyInkScript : MonoBehaviour
         }*/
     }
     
-    public void StartDialogue(TextAsset file)
+    public void StartDialogue(TextAsset file, bool placeholder = false)
     {
         //if (dm.dialoguePlaying) { return; }
         SetInkScript(file);
+        if (placeholder)
+        {
+            Debug.Log("Should add a smaller textbox right above the NPC without a name tag showing the placeholder text");
+        }
         textBox.SetActive(true);
         startDialogue = true;
     }

@@ -22,6 +22,12 @@ public class NPC : MonoBehaviour
     {
         if (canInteract && Input.GetKeyDown(KeyCode.E))
         {
+            // if the dependent dialogue item hasn't been played, a placeholder dialogue is instead played.
+            if (dI.dependency && !dI.dependency.played)
+            {
+                dm.PlayPlaceholderDialogue();
+                return;
+            }
             dm.PlayDialogue(dI);
         }
     }

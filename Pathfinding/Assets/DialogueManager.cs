@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] public bool dialogueIsPlaying;
+    [SerializeField] public DialogueItem placeholderDI;
 
     MyInkScript inkScript;
 
@@ -27,5 +28,14 @@ public class DialogueManager : MonoBehaviour
     public void StopDialogue()
     {
         dialogueIsPlaying = false;
+    }
+
+    public void PlayPlaceholderDialogue()
+    {
+        if (!dialogueIsPlaying)
+        {
+            dialogueIsPlaying = true;
+            inkScript.StartDialogue(placeholderDI.inkFile, true);
+        }
     }
 }
