@@ -200,6 +200,7 @@ public class PlayerController : MonoBehaviour
                         canPickUpFood = true;
                         break;
                     case "NPC":
+                        /* TODO: Only show prompt if they have dialogue */
                         gm.ShowPrompt();
                         break;
                     default:

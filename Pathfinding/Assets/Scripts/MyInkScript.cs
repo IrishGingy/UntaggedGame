@@ -19,6 +19,7 @@ public class MyInkScript : MonoBehaviour
     [SerializeField] private Sprite borderSprite;
     [SerializeField] bool showingChoices;
     [SerializeField] float letterWaitInSeconds;
+    [SerializeField] private PlayerController playerController;
     
     DialogueManager dm;
     static Story story;
@@ -27,6 +28,7 @@ public class MyInkScript : MonoBehaviour
     List<string> tags;
     static Choice choiceSelected;
     bool letterCancel;
+    GameManager gm;
     //bool dialoguePlaying;
 
     // Start is called before the first frame update
@@ -34,6 +36,7 @@ public class MyInkScript : MonoBehaviour
     {
         SetInkScript(inkFile);
         dm = GetComponent<DialogueManager>();
+        gm = GetComponent<GameManager>();
     }
 
     public void SetInkScript(TextAsset file)
@@ -87,6 +90,9 @@ public class MyInkScript : MonoBehaviour
     public void StartDialogue(TextAsset file, bool placeholder = false)
     {
         //if (dm.dialoguePlaying) { return; }
+        gm.HidePrompt();
+        // turn off player movement.
+        playerController.enabled = false;
         SetInkScript(file);
         if (placeholder)
         {
@@ -102,6 +108,9 @@ public class MyInkScript : MonoBehaviour
         Debug.Log("End of Dialogue!");
         textBox.SetActive(false);
         dm.StopDialogue();
+        gm.ShowPrompt();
+        // allow the player to move again.
+        playerController.enabled = true;
         //dm.dialoguePlaying = false;
     }
 
