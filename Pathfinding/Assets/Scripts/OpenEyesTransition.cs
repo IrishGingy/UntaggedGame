@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+// Reference: Custom scene transition effect in Unity by "Sunny Valley Studio" on Youtube
 public class OpenEyesTransition : MonoBehaviour
 {
     [SerializeField] Material screenTransitionMaterial;
